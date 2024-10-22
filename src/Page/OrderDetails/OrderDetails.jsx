@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TrackOrder from "./TrackOrder";
+import { IoCartSharp } from "react-icons/io5";
 
 
 const OrderDetails = () => {
@@ -12,6 +13,19 @@ const OrderDetails = () => {
         const savedData = localStorage.getItem('formDataArray');
         if (savedData) {
             setAllData(JSON.parse(savedData));
+        }
+    }, []);
+
+
+
+    const [carts, setCarts] = useState([]);
+    console.log(carts);
+
+
+    useEffect(() => {
+        const addToCart = localStorage.getItem('cart');
+        if (addToCart) {
+            setCarts(JSON.parse(addToCart));
         }
     }, []);
 
@@ -133,34 +147,37 @@ const OrderDetails = () => {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="md:text-base text-sm font-semibold">
+                            {
+                                carts.map((cart, index) => <tbody key={index} className="md:text-base text-sm font-semibold">
 
-                                <tr >
-                                    <td className="border text-center w-10 h-12 px-2">
-                                        <img
-                                            className=" w-full h-full object-cover mx-auto"
-                                            src=''
-                                            alt=''
-                                        />
-                                    </td>
-                                    <td className="lg:py-6 md:py-4 py-2 text-center border">
-                                        Course name
-                                    </td>
-                                    <td className="lg:py-6 md:py-4 py-2 text-center border">
-                                        Student name
-                                    </td>
-                                    <td className="lg:py-6 md:py-4 py-2 text-center border">
-                                        quantity
-                                    </td>
-                                    <td className="lg:py-6 md:py-4 py-2 text-center border">
-                                        price
-                                    </td>
-                                    <td className="lg:py-6 md:py-4 py-2 text-center border">
-                                        total price
-                                    </td>
-                                </tr>
+                                    <tr >
+                                        <td className="border text-center w-10 h-12 px-2">
+                                            <img
+                                                className=" w-full h-full object-cover mx-auto"
+                                                src={cart.photo}
+                                                alt=''
+                                            />
+                                        </td>
+                                        <td className="lg:py-6 md:py-4 py-2 text-center border">
+                                            {cart.course_name
+                                            }
+                                        </td>
+                                        <td className="lg:py-6 md:py-4 py-2 text-center border">
+                                            {cart.trainer_data.name}
+                                        </td>
+                                        <td className="lg:py-6 md:py-4 py-2 text-center border">
+                                            {cart.quantity}
+                                        </td>
+                                        <td className="lg:py-6 md:py-4 py-2 text-center border">
+                                            {cart.discount_price}
+                                        </td>
+                                        <td className="lg:py-6 md:py-4 py-2 text-center border">
+                                            {cart.quantity * cart.discount_price}
+                                        </td>
+                                    </tr>
 
-                            </tbody>
+                                </tbody>)
+                            }
                         </table>
                     </div>
                 </div>
