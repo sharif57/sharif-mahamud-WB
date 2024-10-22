@@ -148,7 +148,7 @@ const Cart = () => {
                             </div>
 
                             <Link
-                                to={`/cart/checkout`}
+                                to={'/checkout'}
                                 className="font-medium text-black mb-2 border-2 hover:bg-[#D2C5A2] duration-300 py-2 px-4 block text-center mx-auto w-full"
                             >
                                 PROCEED TO CHECKOUT
