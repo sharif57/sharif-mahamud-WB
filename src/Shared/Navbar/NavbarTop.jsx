@@ -72,7 +72,7 @@ const NavbarTop = () => {
     }
   }, []);
 
-  console.log('hello', cartCourses)
+  // console.log('hello', cartCourses)
 
   return (
     <div className="bg-white py-pt_primary text-_white w-full shadow-md border-b-1">
