@@ -119,12 +119,7 @@ const NavbarTop = () => {
                 Login
               </Link>}
           </div>
-          <div className="text-black ">
-            <div className="indicator">
-              <span className="indicator-item badge badge-secondary">{cartCourses.length}</span>
-              <BiCart className="size-8 " />
-            </div>
-          </div>
+          
         </div>
 
       </ul>

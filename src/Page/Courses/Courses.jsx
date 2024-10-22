@@ -76,22 +76,30 @@
 
 // export default Courses;
 
-
 import { useEffect, useState } from "react";
+import { BiCart } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
     const [courses, setCourses] = useState([]);
     const [cart, setCart] = useState([]);
 
-    const saveToLocalStorage = (data) => {
-        localStorage.setItem('courses', JSON.stringify(data));
+    // Function to save cart to local storage
+    const saveCartToLocalStorage = (cartData) => {
+        localStorage.setItem('cart', JSON.stringify(cartData));
     };
 
+    // Function to add a course to the cart
     const handleAddToCart = (course) => {
-        setCart((prevCart) => [...prevCart, course]);
+        setCart((prevCart) => {
+            const newCart = [...prevCart, course];
+            saveCartToLocalStorage(newCart); // Save updated cart to local storage
+            return newCart;
+        });
         console.log("Added to Cart:", course);
     };
 
+    // Function to load courses from API or local storage
     const loadCourses = () => {
         const storedCourses = localStorage.getItem('courses');
         if (storedCourses) {
@@ -101,17 +109,27 @@ const Courses = () => {
                 .then(res => res.json())
                 .then(data => {
                     setCourses(data.courseData);
-                    saveToLocalStorage(data.courseData);
+                    localStorage.setItem('courses', JSON.stringify(data.courseData));
                 });
         }
     };
 
+    // Function to load cart from local storage
+    const loadCartFromLocalStorage = () => {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+            setCart(JSON.parse(storedCart));
+        }
+    };
+
+    // Load courses and cart on component mount
     useEffect(() => {
         loadCourses();
+        loadCartFromLocalStorage();
     }, []);
 
     return (
-        <div className="m-mt_16px">
+        <div className="m-mt_16px relative">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {courses.map((course, index) => (
                     <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -155,16 +173,16 @@ const Courses = () => {
                 ))}
             </div>
 
-
-            {/* <div>
-                {
-                    cart.map((c, index) => <div key={index}>
-                        <div>
-                        <h1>{c.course_name}</h1>
+            <div className="absolute">
+                <Link to={'/cart'} className="text-4xl fixed top-3 right-40 bg-white rounded-full shadow-lg">
+                    <div className="text-black">
+                        <div className="indicator">
+                            <span className="indicator-item badge badge-secondary">{cart.length}</span>
+                            <BiCart className="size-8" />
                         </div>
-                    </div>)
-                }
-            </div> */}
+                    </div>
+                </Link>
+            </div>
         </div>
     );
 };
