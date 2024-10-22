@@ -17,11 +17,14 @@ const Navbar = () => {
     };
 
     window.addEventListener("resize", handleResize);
-   
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [open]); 
+  }, [open]);
+
+  
+
   return (
     <div className="bg-bg_primary">
       <div className="navbar max-w-7xl mx-auto px-0 py-4">
@@ -84,7 +87,7 @@ const Navbar = () => {
                   Career
                 </Link>
                 <a
-                  href={companyProfile}                  
+                  href={companyProfile}
                   className="block px-4 py-2 text-text_gray hover:bg-text_secondary hover:text-white"
                 >
                   Company Profile
@@ -195,9 +198,8 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`lg:hidden fixed top-48 ${
-          open ? "left-0" : "-left-[100%]"
-        } duration-300 z-30 w-full md:3/5`}
+        className={`lg:hidden fixed top-48 ${open ? "left-0" : "-left-[100%]"
+          } duration-300 z-30 w-full md:3/5`}
       >
         <MenuBar></MenuBar>
       </div>

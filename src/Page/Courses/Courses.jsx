@@ -155,7 +155,8 @@ const Courses = () => {
                 ))}
             </div>
 
-            <div>
+
+            {/* <div>
                 {
                     cart.map((c, index) => <div key={index}>
                         <div>
@@ -163,7 +164,7 @@ const Courses = () => {
                         </div>
                     </div>)
                 }
-            </div>
+            </div> */}
         </div>
     );
 };
