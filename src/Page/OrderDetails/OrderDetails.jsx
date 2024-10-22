@@ -1,7 +1,18 @@
-import TrackOrder from "./TrackOrder";
+import { useEffect, useState } from "react";
 
 
 const OrderDetails = () => {
+
+    const [formData, setFormData]= useState()
+
+    console.log(formData)
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('formData');
+        if (storedData) {
+          setFormData(JSON.parse(storedData)); // Populate form with stored data
+        }
+      }, []);
 
 
     return (
