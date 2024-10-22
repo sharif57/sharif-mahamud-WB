@@ -50,47 +50,41 @@ const Checkout = () => {
     };
 
 
-    const [formData, setFormData] = useState({
-
-        fullName: '',
-        formNo: '',
-        parentName: '',
-        parentNumber: '',
-        school: '',
-        jobInfo: '',
-        email: '',
-        gender: '',
-        presentAddress: '',
-        permanentAddress: '',
-        nid: '',
-        mobile: '',
-        guardianName: '',
-        dob: '',
-        bloodGroup: ''
-    });
-
-
-    console.log(formData)
-
-    useEffect(() => {
-        const storedData = localStorage.getItem('formData');
-        if (storedData) {
-            setFormData(JSON.parse(storedData));
-        }
-    }, []);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value, });
-    };
+    const [allData, setAllData] = useState([]);
 
 
 
     const handleSubmit = (e) => {
-        e.preventDefault(); 
-        localStorage.setItem('formData', JSON.stringify(formData));
-        alert('Form data saved to localStorage!');
+        e.preventDefault();
+        const fullName = e.target.fullName.value;
+        const formNo = e.target.formNo.value;
+        const parentName = e.target.parentName.value;
+        const number = e.target.number.value;
+        const school = e.target.school.value;
+        const jobInfo = e.target.jobInfo.value;
+        const email = e.target.email.value;
+        const gender = e.target.gender.value;
+        const presentAddress = e.target.presentAddress.value; 
+        const permanentAddress = e.target.permanentAddress.value; 
+        const nid = e.target.nid.value; 
+        const mobile = e.target.mobile.value; 
+        const guardianName = e.target.guardianName.value; 
+        const dob = e.target.dob.value; 
+        const bloodGroup = e.target.bloodGroup.value; 
+       
+
+
+        const newEntry = { fullName,formNo,parentName,number, school, jobInfo, email, gender, presentAddress, permanentAddress, nid, mobile, guardianName, dob, bloodGroup};
+
+
+        const updatedData = [...allData, newEntry];
+        setAllData(updatedData);
+
+
+        localStorage.setItem('formDataArray', JSON.stringify(updatedData));
+        console.log('Form Data Submitted and Saved to Local Storage:', updatedData);
     };
+
 
     return (
         <div className="mt-5 border mx-2">
@@ -98,6 +92,7 @@ const Checkout = () => {
                 <h2 className='text-5xl font-bold'>Trainee Admission Form</h2>
             </div>
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+                {/* Trainee Information Section */}
                 <div className="form-section">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
@@ -106,8 +101,6 @@ const Checkout = () => {
                                 name="fullName"
                                 type="text"
                                 id="fullName"
-                                value={formData.fullName}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -117,8 +110,6 @@ const Checkout = () => {
                                 name="formNo"
                                 type="text"
                                 id="formNo"
-                                value={formData.formNo}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -131,18 +122,14 @@ const Checkout = () => {
                                 name="parentName"
                                 type="text"
                                 id="parentName"
-                                value={formData.parentName}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
                         <div>
                             <label htmlFor="parentNumber" className="block font-semibold text-base mb-2">Number:</label>
                             <input
-                                name="parentNumber"
+                                name="number"
                                 type="text"
-                                value={formData.parentNumber}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -155,8 +142,6 @@ const Checkout = () => {
                                 name="school"
                                 type="text"
                                 id="school"
-                                value={formData.school}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -166,8 +151,6 @@ const Checkout = () => {
                                 name="jobInfo"
                                 type="text"
                                 id="jobInfo"
-                                value={formData.jobInfo}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -180,8 +163,6 @@ const Checkout = () => {
                                 name="email"
                                 type="email"
                                 id="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -190,8 +171,6 @@ const Checkout = () => {
                             <select
                                 name="gender"
                                 id="gender"
-                                value={formData.gender}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             >
                                 <option value="" disabled selected>Select Gender</option>
@@ -208,8 +187,6 @@ const Checkout = () => {
                             <textarea
                                 name="presentAddress"
                                 id="presentAddress"
-                                value={formData.presentAddress}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -218,8 +195,6 @@ const Checkout = () => {
                             <textarea
                                 name="permanentAddress"
                                 id="permanentAddress"
-                                value={formData.permanentAddress}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -232,8 +207,6 @@ const Checkout = () => {
                                 name="nid"
                                 type="text"
                                 id="nid"
-                                value={formData.nid}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -243,8 +216,6 @@ const Checkout = () => {
                                 name="mobile"
                                 type="text"
                                 id="mobile"
-                                value={formData.mobile}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -257,8 +228,6 @@ const Checkout = () => {
                                 name="guardianName"
                                 type="text"
                                 id="guardianName"
-                                value={formData.guardianName}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -268,8 +237,6 @@ const Checkout = () => {
                                 name="dob"
                                 type="date"
                                 id="dob"
-                                value={formData.dob}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             />
                         </div>
@@ -281,8 +248,6 @@ const Checkout = () => {
                             <select
                                 name="bloodGroup"
                                 id="bloodGroup"
-                                value={formData.bloodGroup}
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md p-2"
                             >
                                 <option value="" disabled selected>Select Blood Group</option>
@@ -298,8 +263,6 @@ const Checkout = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* <button className="btn btn-success">Submit</button> */}
 
                 <div className="m-mt_16px">
 
@@ -419,3 +382,104 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+
+// import  { useState, useEffect } from 'react';
+
+// function CheckOut() {
+//     const [formData, setFormData] = useState({
+//         name: '',
+//         email: '',
+//         phone: '',
+//         address: '',
+//         city: '',
+//     });
+
+//     // Load data from localStorage when the component mounts
+// useEffect(() => {
+//     const storedData = localStorage.getItem('formData');
+//     if (storedData) {
+//         setFormData(JSON.parse(storedData));
+//     }
+// }, []);
+
+//     // Handle input changes and update state only
+// const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//         ...formData,
+//         [name]: value,
+//     });
+// };
+
+//     // Handle form submission and store data to localStorage
+// const handleSubmit = (e) => {
+//     e.preventDefault(); // Prevent form refresh
+//     localStorage.setItem('formData', JSON.stringify(formData));
+//     alert('Form data saved to localStorage!');
+// };
+
+//     return (
+//         <div style={{ padding: '20px' }}>
+//             <h1>React Local Storage with Submit Button</h1>
+//             <form onSubmit={handleSubmit}>
+//                 <div>
+//                     <label>Name: </label>
+//                     <input
+//                         type="text"
+//                         name="name"
+//                         value={formData.name}
+//                         onChange={handleInputChange}
+//                         placeholder="Enter your name"
+//                     />
+//                 </div>
+//                 <div>
+//                     <label>Email: </label>
+//                     <input
+//                         type="email"
+//                         name="email"
+//                         value={formData.email}
+//                         onChange={handleInputChange}
+//                         placeholder="Enter your email"
+//                     />
+//                 </div>
+//                 <div>
+//                     <label>Phone: </label>
+//                     <input
+//                         type="tel"
+//                         name="phone"
+//                         value={formData.phone}
+//                         onChange={handleInputChange}
+//                         placeholder="Enter your phone number"
+//                     />
+//                 </div>
+//                 <div>
+//                     <label>Address: </label>
+//                     <input
+//                         type="text"
+//                         name="address"
+//                         value={formData.address}
+//                         onChange={handleInputChange}
+//                         placeholder="Enter your address"
+//                     />
+//                 </div>
+//                 <div>
+//                     <label>City: </label>
+//                     <input
+//                         type="text"
+//                         name="city"
+//                         value={formData.city}
+//                         onChange={handleInputChange}
+//                         placeholder="Enter your city"
+//                     />
+//                 </div>
+
+//                 <button type="submit" style={{ marginTop: '20px' }}>
+//                     Submit
+//                 </button>
+//             </form>
+//         </div>
+//     );
+// }
+
+// export default CheckOut;
