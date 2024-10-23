@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useEffect, useState } from "react";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
 
@@ -53,6 +53,7 @@ const Checkout = () => {
     const [allData, setAllData] = useState([]);
 
 
+    const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -83,6 +84,8 @@ const Checkout = () => {
 
         localStorage.setItem('formDataArray', JSON.stringify(updatedData));
         console.log('Form Data Submitted and Saved to Local Storage:', updatedData);
+        alert('order confirm')
+        navigate('/order-details')
     };
 
 
